@@ -1,9 +1,7 @@
-import { useState } from "react";
 import "./item.css"
 
 export default function ItemCards(props) {
-  console.log("an",props)
-
+console.log("cac",props);
   return (
     <>
       <div class="card" id={props.id}>

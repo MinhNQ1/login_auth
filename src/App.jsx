@@ -2,7 +2,7 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Login from "./components/Login";
 import AuthComponent from "./components/AuthComponent";
-import UserList from "./components/UserInformations"
+import UserInfo from "./components/UserInformations"
 import { Routes, Route, Navigate } from "react-router-dom";
 
 function ProtectedRoute({ children }) {
@@ -27,7 +27,7 @@ function App() {
           path="/home"
           element={
             <ProtectedRoute>
-              <UserList />
+              <UserInfo />
             </ProtectedRoute>
           }
         />
