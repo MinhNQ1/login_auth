@@ -1,14 +1,39 @@
-import './App.css'
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Login from './components/Login';
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Login from "./components/Login";
+import AuthComponent from "./components/AuthComponent";
+import UserList from "./components/UserInformations"
+import { Routes, Route, Navigate } from "react-router-dom";
 
-function App() {
+function ProtectedRoute({ children }) {
+  const accessToken = localStorage.getItem("accessToken");
 
-  return (
-    <>
-    <Login/>
-    </>
-  )
+  console.log("accessToken", accessToken);
+
+  if (!accessToken) {
+    return <Navigate to="/login" />;
+  }
+
+  return <>{children}</>;
 }
 
-export default App
+function App() {
+  return (
+    <>
+      <Routes>
+        <Route exact path="/login" element={<Login />} />
+        <Route
+          exact
+          path="/home"
+          element={
+            <ProtectedRoute>
+              <UserList />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+    </>
+  );
+}
+
+export default App;

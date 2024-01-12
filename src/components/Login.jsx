@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import { Form, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [username1, setUser] = useState("");
   const [password1, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,7 +21,12 @@ export default function Login() {
       }),
     })
       .then((res) => res.json())
-      .then(console.log);
+      .then((res) => {
+        if (res.token) {
+          localStorage.setItem("accessToken", res.token);
+          navigate("/home");
+        }
+      });
   };
 
   return (
@@ -42,7 +49,7 @@ export default function Login() {
             type="password"
             value={password1}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
+            placeholder="Enter Password"
           />
         </Form.Group>
 
